@@ -3,7 +3,7 @@ package com.noonight.pc.kotlinkeddit.commons.adapter
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.noonight.pc.kotlinkeddit.R
-import com.noonight.pc.kotlinkeddit.commons.inflate
+import com.noonight.pc.kotlinkeddit.commons.extensions.inflate
 
 /**
  * Created by PC on 8/23/2017.
@@ -17,4 +17,5 @@ class LoadingDelegateAdapter : ViewTypeDelegateAdapter {
     class TurnsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
             parent.inflate(R.layout.news_item_loading)
     )
+
 }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.noonight.pc.kotlinkeddit.features.news.NewsFragment
 import android.support.v4.app.Fragment
+import android.util.Log
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         if (savedInstanceState == null)
+            Log.d(javaClass.simpleName, "savedInstantState is $savedInstanceState")
             changeFragment(NewsFragment())
     }
 
@@ -40,6 +42,15 @@ class MainActivity : AppCompatActivity() {
         if (manager.backStackEntryCount > 0) {
             val first = manager.getBackStackEntryAt(0)
             manager.popBackStack(first.id, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
+    }
+
+    override fun onBackPressed() {
+        val fragmentManager = supportFragmentManager
+        if (fragmentManager.backStackEntryCount > 1) {
+            fragmentManager.popBackStack()
+        } else {
+            finish()
         }
     }
 }
