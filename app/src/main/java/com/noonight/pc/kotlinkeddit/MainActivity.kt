@@ -2,11 +2,11 @@ package com.noonight.pc.kotlinkeddit
 
 import android.app.FragmentManager
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import com.noonight.pc.kotlinkeddit.features.news.NewsFragment
-import android.support.v4.app.Fragment
 import android.util.Log
+import com.noonight.pc.kotlinkeddit.features.news.NewsFragment
 
 class MainActivity : AppCompatActivity() {
 

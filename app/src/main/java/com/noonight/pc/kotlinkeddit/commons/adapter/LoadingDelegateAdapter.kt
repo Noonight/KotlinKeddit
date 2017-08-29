@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import com.noonight.pc.kotlinkeddit.R
 import com.noonight.pc.kotlinkeddit.commons.extensions.inflate
 
-/**
- * Created by PC on 8/23/2017.
- */
 class LoadingDelegateAdapter : ViewTypeDelegateAdapter {
+
+    // создание view держателя
     override fun onCreateViewHolder(parent: ViewGroup) = TurnsViewHolder(parent)
 
+    // привязывание view держателя
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: ViewType) {
     }
 

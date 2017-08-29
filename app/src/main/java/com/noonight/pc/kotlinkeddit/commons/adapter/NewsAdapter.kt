@@ -4,11 +4,7 @@ import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.noonight.pc.kotlinkeddit.commons.RedditNewsItem
-import com.noonight.pc.kotlinkeddit.commons.adapter.ViewType
 
-/**
- * Created by PC on 8/23/2017.
- */
 class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: ArrayList<ViewType>
