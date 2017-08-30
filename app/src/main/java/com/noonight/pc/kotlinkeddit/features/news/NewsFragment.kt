@@ -1,6 +1,7 @@
 package com.noonight.pc.kotlinkeddit.features.news
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -9,11 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.noonight.pc.kotlinkeddit.R
 import com.noonight.pc.kotlinkeddit.commons.RedditNewsItem
+import com.noonight.pc.kotlinkeddit.commons.RxBaseFragment
 import com.noonight.pc.kotlinkeddit.commons.adapter.NewsAdapter
 import com.noonight.pc.kotlinkeddit.commons.extensions.inflate
 import kotlinx.android.synthetic.main.news_fragment.*
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
-class NewsFragment : Fragment() {
+class NewsFragment : RxBaseFragment() {
 
 
     private val newsManager by lazy {
@@ -59,7 +63,18 @@ class NewsFragment : Fragment() {
     }
 
     private fun requestNews() {
-        //(news_list.adapter as NewsAdapter).addNews(news)
+        val subscription = newsManager.getNews()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            retrievedNews -> (news_list.adapter as NewsAdapter).addNews(retrievedNews)
+                        },
+                        {
+                            e -> Snackbar.make(news_list, e.message ?: "", Snackbar.LENGTH_LONG).show()
+                        }
+                )
+        subscriptions.add(subscription)
     }
 
     private fun initAdapter() {
