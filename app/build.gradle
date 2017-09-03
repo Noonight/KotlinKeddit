@@ -41,6 +41,8 @@ dependencies {
 
             // Retrofit
     compile "com.squareup.retrofit2:retrofit:2.0.0"
+
+    compile "com.squareup.retrofit2:converter-moshi:2.0.0"
 }
 repositories {
     mavenCentral()
