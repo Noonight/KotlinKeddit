@@ -21,6 +21,10 @@ import rx.schedulers.Schedulers
 
 class NewsFragment : RxBaseFragment() {
 
+    companion object {
+        private val KEY_REDDIT_NEWS = "redditNews"
+    }
+
     private var redditNews: RedditNews? = null
     private val newsManager by lazy {
         NewsManager()
@@ -37,34 +41,29 @@ class NewsFragment : RxBaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        news_list.setHasFixedSize(true)
-        //news_list.layoutManager = LinearLayoutManager(context)
-        //news_list.setBackgroundColor(999)
-        val linearLayout = LinearLayoutManager(context)
-        news_list.layoutManager = linearLayout
-        news_list.clearOnScrollListeners()
-        news_list.addOnScrollListener(InfiniteScrollListener({ requestNews() }, linearLayout))
-        /*newsList.setHasFixedSize(true)                            part 4
-        newsList.layoutManager = LinearLayoutManager(context)*/
+        news_list.apply {
+            setHasFixedSize(true)
+            val linearLayout = LinearLayoutManager(context)
+            layoutManager = linearLayout
+            clearOnScrollListeners()
+            addOnScrollListener(InfiniteScrollListener({ requestNews() }, linearLayout))
+        }
 
         initAdapter()
 
-        if (savedInstanceState == null) {
-            // добалвяет в recycler view новые элементы новостей
-            /*Log.d(javaClass.simpleName, "${savedInstanceState} from ${javaClass.simpleName}")
-            val news = mutableListOf<RedditNewsItem>()
-            for (i in 1..100) {
-                news.add(RedditNewsItem(
-                        "author$i",
-                        "Title $i",
-                        i, // number of comments
-                        1457207701L - i * 200, // time
-                        "http://lorempixel.com/200/200/technics/$i", // image url
-                        "url"
-                ))
-            }
-            (news_list.adapter as NewsAdapter).addNews(news)*/
+        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_REDDIT_NEWS)) {
+            redditNews = savedInstanceState.get(KEY_REDDIT_NEWS) as RedditNews
+            (news_list.adapter as NewsAdapter).clearAndAddNews(redditNews!!.news)
+        } else {
             requestNews()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val news = (news_list.adapter as NewsAdapter).getNews()
+        if (redditNews != null && news.size > 0) {
+            outState.putParcelable(KEY_REDDIT_NEWS, redditNews?.copy(news = news))
         }
     }
 
