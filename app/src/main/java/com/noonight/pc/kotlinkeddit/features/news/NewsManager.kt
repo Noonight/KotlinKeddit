@@ -1,12 +1,13 @@
 package com.noonight.pc.kotlinkeddit.features.news
 
-import com.noonight.pc.kotlinkeddit.api.RestAPI
+import com.noonight.pc.kotlinkeddit.api.NewsRestAPI
+import com.noonight.pc.kotlinkeddit.api.NewsAPI
 import com.noonight.pc.kotlinkeddit.commons.RedditNews
 import com.noonight.pc.kotlinkeddit.commons.RedditNewsItem
 import rx.Observable
 
 // add in part 5
-class NewsManager(private val api: RestAPI = RestAPI()) {
+class NewsManager(private val api: NewsAPI = NewsRestAPI()) {
     //fun getNews(limit: String = "10"): Observable<List<RedditNewsItem>> {
     fun getNews(after: String, limit: String = "10"): Observable<RedditNews> {
         return Observable.create {
