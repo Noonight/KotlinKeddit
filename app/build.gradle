@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 25
@@ -12,6 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //jackOptions { enabled true }
     }
     buildTypes {
         release {
@@ -42,11 +44,26 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:2.0.0"
     compile "com.squareup.retrofit2:converter-moshi:2.0.0"
 
+    //Dagger 2
+    compile 'com.google.dagger:dagger:2.11'
+    kapt 'com.google.dagger:dagger-compiler:2.11'
+
     // Tests
-    testCompile 'org.mockito:mockito-core:1.10.19'
+    /*testCompile 'org.mockito:mockito-core:1.10.19'
     compile 'junit:junit:4.12'
-    compile 'org.mockito:mockito-core:1.10.19'
+    compile 'org.mockito:mockito-core:1.10.19'*/
+
+    // Tests
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.nhaarman:mockito-kotlin:0.7.0'
+    testCompile 'org.jetbrains.spek:spek:1.0.25'
+    testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    //compile 'org.jetbrains.spek:spek:1.0.25'
 }
 repositories {
     mavenCentral()
+    maven {
+        url "http://repository.jetbrains.com/all"
+        //url "http://dl.bintray.com/jetbrains/spek"
+    }
 }

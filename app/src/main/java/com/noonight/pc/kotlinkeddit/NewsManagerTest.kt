@@ -104,4 +104,4 @@ class NewsManagerTest {
     }
 }
 
-inline fun <reified T : Any> mock(): T = org.mockito.Mockito.mock(T::class.java)
+//inline fun <reified T : Any> mock(): T = org.mockito.Mockito.mock(T::class.java)
